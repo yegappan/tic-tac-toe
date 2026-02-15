@@ -101,21 +101,22 @@ export class PopupUI
     endfor
     this.match_ids = []
 
-    var [cr, cc] = this.cursor
-    var cursorPos = [4 + cr * 2, 2 + cc * 4, 3]
-    var cursorId = matchaddpos('TicTacToeCursor', [cursorPos], 10, -1, {window: this.winid})
-    this.match_ids->add(cursorId)
-
     var winline = this.game.WinningLine()
     if winline->len() == 0
       return
     endif
 
+    var boardLine = '│ X │ X │ X │'
+    var boardWidth = strdisplaywidth(boardLine)
+    var leftPad = (Types.POPUP_WIDTH - boardWidth) / 2
+
     var group = this.game.Winner() == Types.Cell.X ? 'TicTacToeWinX' : 'TicTacToeWinO'
     var winpos: list<list<number>> = []
     for pos in winline
       var [r, c] = pos
-      winpos->add([4 + r * 2, 2 + c * 4, 3])
+      var winLine = 4 + r * 2
+      var winCol = leftPad + 1 + 1 + c * 4
+      winpos->add([winLine, winCol, 3])
     endfor
     var winId = matchaddpos(group, winpos, 11, -1, {window: this.winid})
     this.match_ids->add(winId)
