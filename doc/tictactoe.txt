@@ -1,0 +1,70 @@
+*tictactoe.txt*  Tic-Tac-Toe game for Vim
+
+CONTENTS                                     *tictactoe-contents*
+
+  1. Overview...............|tictactoe-overview|
+  2. Installation...........|tictactoe-install|
+  3. Usage..................|tictactoe-usage|
+  4. Controls...............|tictactoe-controls|
+  5. Settings...............|tictactoe-settings|
+  6. Notes..................|tictactoe-notes|
+
+==============================================================================
+1. Overview                                                   *tictactoe-overview*
+
+Tic-Tac-Toe is a popup-window game written in Vim9 script. You play as X,
+while the computer plays as O. The game supports multiple AI difficulties,
+score tracking, and alternating first moves between you and the computer.
+
+==============================================================================
+2. Installation                                                 *tictactoe-install*
+
+Use your favorite plugin manager, or install manually:
+
+  - Copy this repository into a directory on your 'runtimepath'.
+  - Ensure these paths exist:
+      plugin/tictactoe.vim
+      autoload/tictactoe.vim
+      autoload/tictactoe/*.vim
+      doc/tictactoe.txt
+  - Run |:helptags| once:
+      :helptags ALL
+
+==============================================================================
+3. Usage                                                           *tictactoe-usage*
+
+Start the game:
+
+  :TicTacToe
+
+==============================================================================
+4. Controls                                                     *tictactoe-controls*
+
+Movement:
+  h j k l        Move cursor (left, down, up, right)
+  Arrow keys     Move cursor
+
+Actions:
+  <Enter>        Place your mark (X)
+  <Space>        Place your mark (X)
+  r              Reset and start a new round
+  d              Cycle AI difficulty
+  c              Clear score
+  q or <Esc>     Quit the popup
+
+==============================================================================
+5. Settings                                                     *tictactoe-settings*
+
+g:tictactoe_difficulty                                   *g:tictactoe_difficulty*
+  Default: "medium"
+  Values: "easy", "medium", "hard"
+
+==============================================================================
+6. Notes                                                           *tictactoe-notes*
+
+- The popup is fixed width and centered.
+- Scores are shown as X (you), O (computer), and D (draws).
+- Each new round alternates who takes the first move.
+
+==============================================================================
+vim:tw=78:ts=2:et:ft=help
