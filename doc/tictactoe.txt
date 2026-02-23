@@ -1,23 +1,30 @@
-*tictactoe.txt*  Tic-Tac-Toe game for Vim
+*tictactoe.txt*  Tic-Tac-Toe Game for Vim9
 
-CONTENTS                                               *tictactoe-contents*
+================================================================================
+CONTENTS                                            *tictactoe-contents*
 
-  1. Overview...............|tictactoe-overview|
-  2. Installation...........|tictactoe-install|
-  3. Usage..................|tictactoe-usage|
-  4. Controls...............|tictactoe-controls|
-  5. Settings...............|tictactoe-settings|
-  6. Notes..................|tictactoe-notes|
+  1. Introduction .......................... |tictactoe-intro|
+  2. Installation .......................... |tictactoe-install|
+  3. Commands ............................. |tictactoe-commands|
+  4. Controls ............................. |tictactoe-controls|
+  5. Game Rules ........................... |tictactoe-rules|
+  6. Strategy Tips ........................ |tictactoe-strategy|
+  7. Configuration ........................ |tictactoe-config|
+  8. Vim9 Script Features ................. |tictactoe-vim9|
 
-==============================================================================
-1. Overview                                            *tictactoe-overview*
+================================================================================
+1. INTRODUCTION                                    *tictactoe-intro*
 
-Tic-Tac-Toe is a popup-window game written in Vim9 script. You play as X,
-while the computer plays as O. The game supports multiple AI difficulties,
-score tracking, and alternating first moves between you and the computer.
+Tic-Tac-Toe is a classic game implemented in Vim9script. Play against the
+computer AI with adjustable difficulty levels. You play as X, the computer
+plays as O. The game features score tracking and alternating first moves
+to keep gameplay varied.
 
-==============================================================================
-2. Installation                                        *tictactoe-install*
+The game runs in a centered popup window and keeps a running score of wins,
+losses, and draws.
+
+================================================================================
+2. INSTALLATION                                   *tictactoe-install*
 
 Requirements~
 
@@ -93,41 +100,139 @@ Then run `:PlugInstall` and `:helptags ALL`
 For other plugin managers (Vundle, Pathogen, etc.), follow their standard
 installation procedures for local plugins.
 
-==============================================================================
-3. Usage                                               *tictactoe-usage*
+================================================================================
+3. COMMANDS                                       *tictactoe-commands*
 
-Start the game:
+:TicTacToe
+    Start a new Tic-Tac-Toe game in a popup window.
 
-  :TicTacToe
+================================================================================
+4. CONTROLS                                        *tictactoe-controls*
 
-==============================================================================
-4. Controls                                            *tictactoe-controls*
+Movement and Selection:
+  h or <Left>     Move cursor left
+  j or <Down>     Move cursor down
+  k or <Up>       Move cursor up
+  l or <Right>    Move cursor right
 
-Movement:
-  h j k l        Move cursor (left, down, up, right)
-  Arrow keys     Move cursor
+Game Action:
+  <Enter> or      Place your mark (X) on the selected cell
+  <Space>
 
-Actions:
-  <Enter>        Place your mark (X)
-  <Space>        Place your mark (X)
-  r              Reset and start a new round
-  d              Cycle AI difficulty
-  c              Clear score
-  q or <Esc>     Quit the popup
+Game Control:
+  r               Reset and start a new round
+  d               Cycle AI difficulty (easy/medium/hard)
+  c               Clear score history
+  q or <Esc>      Quit the game
 
-==============================================================================
-5. Settings                                            *tictactoe-settings*
+================================================================================
+5. GAME RULES                                      *tictactoe-rules*
 
-g:tictactoe_difficulty                                 *g:tictactoe_difficulty*
-  Default: "medium"
-  Values: "easy", "medium", "hard"
+Objective~
+Be the first player to get three of your marks in a row (horizontal, vertical,
+or diagonal). You play as X, the computer plays as O.
 
-==============================================================================
-6. Notes                                               *tictactoe-notes*
+How to Play~
+1. Use hjkl or arrow keys to navigate the 3x3 grid
+2. Press Enter or Space to place your X on the selected cell
+3. The computer automatically plays as O
+4. Continue until one player gets three in a row or the board fills (draw)
 
-- The popup is fixed width and centered.
-- Scores are shown as X (you), O (computer), and D (draws).
-- Each new round alternates who takes the first move.
+Win Condition~
+Get three X's in a row: horizontal, vertical, or diagonal.
 
-==============================================================================
-vim:tw=78:ts=2:et:ft=help
+Draw Condition~
+All 9 cells are filled with no winner.
+
+Lose Condition~
+The computer gets three O's in a row first.
+
+Difficulty Levels~
+
+Easy:
+    Computer plays randomly, making frequent mistakes. Ideal for beginners.
+
+Medium:
+    Computer uses basic strategy to block your winning moves and play
+    offensively. Moderate challenge for casual play.
+
+Hard:
+    Computer uses optimal play with minimax algorithm. Very difficult to
+    beat or draw against.
+
+Alternating Moves~
+Each new round alternates who moves first to keep gameplay varied and fair.
+The game tracks wins (X), losses (O), and draws (D).
+
+================================================================================
+================================================================================
+6. STRATEGY TIPS                                         *tictactoe-strategy*
+
+Opening Strategy~
+  • Center placement (position 5) is the strongest opening move
+  • Corner placements (1, 3, 7, 9) are your second-best options
+  • Edge placements (2, 4, 6, 8) are weaker opening positions
+  • Taking center prevents opponent from using it for many combinations
+
+Defensive Play~
+Always scan for opponent winning moves:
+  • If opponent has 2 X's in a line with an empty third, block that spot
+  • Look for fork opportunities (create two winning threats simultaneously)
+  • Don't leave three cells in a row with only one opponent piece - take one
+  • Priority: Block > Create opportunity > Random move
+
+Combination Play~
+  • Opposite corners (1-9 or 3-7) form weak pairs - avoid this pattern
+  • Adjacent corners form stronger control zones
+  • Center control forces opponent into defensive positions
+  • Two corners + center often leads to victory
+
+Difficulty-Specific Tips~
+
+Easy Mode (Random Computer):
+  • Simply take center and any two adjacent spaces
+  • The computer will make random mistakes
+  • Focus on learning basic strategies
+
+Medium Mode (Basic Strategy):
+  • Take center when possible
+  • Always block opponent's two-in-a-row threats
+  • Create forks when opportunity arises
+  • Look for winning moves before defensive ones
+
+Hard Mode (Minimax Algorithm):
+  • Computer plays perfectly - aim for draws
+  • Take center or corners on your first move
+  • Block immediately if computer threatens to win
+  • Accept draws against optimal play
+  • Use the score tracking to improve over many games
+
+================================================================================
+7. CONFIGURATION                                        *tictactoe-config*
+
+g:tictactoe_difficulty                         *g:tictactoe_difficulty*
+    Set the starting AI difficulty level.
+    Default: "medium"
+    Allowed values: "easy", "medium", "hard"
+
+Example:
+>
+    let g:tictactoe_difficulty = "hard"
+    :TicTacToe
+<
+
+================================================================================
+8. VIM9 SCRIPT FEATURES                          *tictactoe-vim9*
+
+This plugin demonstrates several modern Vim9script capabilities:
+
+  • Classes for game state, board management, and AI
+  • Popup windows for game UI rendering
+  • Type annotations for type safety
+  • Minimax algorithm for optimal computer play (hard mode)
+  • Score persistence across multiple games
+  • Clean separation of concerns across modules
+
+================================================================================
+
+vim:tw=78:ts=8:ft=help:norl:
