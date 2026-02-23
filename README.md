@@ -1,39 +1,42 @@
 # Tic-Tac-Toe Game in Vim9script
 
-A popup-window Tic-Tac-Toe game written in Vim9 script. You play as X, the
-computer plays as O. The game includes multiple AI difficulties, score
-tracking, and alternating first moves between you and the computer.
+A classic Tic-Tac-Toe game with AI opponents of varying difficulty. You play as X against the computer playing as O. Written in Vim9script to showcase game AI, board logic, and state management.
+
+## Features
+
+- **Multiple AI Difficulties**: Play against Easy, Medium, or Hard opponents
+- **Score Tracking**: Tracks wins, losses, and draws across games
+- **Alternating First Move**: First player alternates between human and computer each round
+- **Popup Window UI**: Clean, centered game interface
+- **Difficulty Cycling**: Toggle AI difficulty between rounds
+- **Modern Vim9script**: Demonstrates minimax algorithm and game logic
+
+## Requirements
+
+- Vim 9.0 or later with Vim9script support
+- **NOT compatible with Neovim** (requires Vim9-specific features)
 
 ## Installation
 
 ### Using Git
-If you have git installed, run the following command in your terminal:
 
 **Unix/Linux/macOS:**
-
 ```bash
 git clone https://github.com/yegappan/tic-tac-toe.git ~/.vim/pack/downloads/opt/tic-tac-toe
 ```
-**Windows (cmd.exe):**
 
+**Windows (cmd.exe):**
 ```cmd
 git clone https://github.com/yegappan/tic-tac-toe.git %USERPROFILE%\vimfiles\pack\downloads\opt\tic-tac-toe
 ```
 
 ### Using a ZIP file
-If you prefer not to use Git:
 
 **Unix/Linux/macOS:**
-
-Create the destination directory:
-
 ```bash
 mkdir -p ~/.vim/pack/downloads/opt/
 ```
-
-Download the plugin ZIP file from GitHub and extract its contents into the directory created above.
-
-*Note:* GitHub usually names the extracted folder tic-tac-toe-main. Rename it to tic-tac-toe so the final path looks like this:
+Download the ZIP file from GitHub and extract it into the directory above. Rename the extracted folder (usually tic-tac-toe-main) to `tic-tac-toe` so the final path matches:
 
 ```plaintext
 ~/.vim/pack/downloads/opt/tic-tac-toe/
@@ -43,16 +46,10 @@ Download the plugin ZIP file from GitHub and extract its contents into the direc
 ```
 
 **Windows (cmd.exe):**
-
-Create the destination directory:
-
 ```cmd
 if not exist "%USERPROFILE%\vimfiles\pack\downloads\opt" mkdir "%USERPROFILE%\vimfiles\pack\downloads\opt"
 ```
-
-Download the plugin ZIP file from GitHub and extract its contents into that directory.
-
-*Note:* Rename the extracted folder (usually tic-tac-toe-main) to tic-tac-toe so the path matches:
+Download the ZIP file from GitHub and extract it into the directory above. Rename the extracted folder (usually tic-tac-toe-main) to `tic-tac-toe` so the final path matches:
 
 ```plaintext
 %USERPROFILE%\vimfiles\pack\downloads\opt\tic-tac-toe\
@@ -61,59 +58,92 @@ Download the plugin ZIP file from GitHub and extract its contents into that dire
 └── doc/
 ```
 
-**Finalizing Setup**
-Since this plugin is installed in the opt (optional) directory, it will not load automatically. Add the following line to your .vimrc (Unix) or _vimrc (Windows):
+### Finalizing Setup
 
+Since the plugin is in the `opt` directory, add this to your `.vimrc` (Unix) or `_vimrc` (Windows):
 ```viml
 packadd tic-tac-toe
 ```
 
-After adding the line, restart Vim and run the following command to enable the help documentation:
-
+Then restart Vim and run:
 ```viml
 :helptags ALL
 ```
 
 ### Plugin Manager Installation
 
-If using a plugin manager like vim-plug, add to your .vimrc or init.vim:
+If using vim-plug, add to your config:
+```viml
+Plug 'path/to/tic-tac-toe'
+```
+Then run `:PlugInstall` and `:helptags ALL`.
 
-   ```viml
-   Plug 'path/to/tic-tac-toe'
-   ```
-
-Then run `:PlugInstall` and `:helptags ALL`
-
-For other plugin managers (Vundle, Pathogen, etc.), follow their standard
-installation procedures for local plugins.
+For other plugin managers, follow their standard procedure for local plugins.
 
 ## Usage
 
-Start the game:
+### Starting the Game
 
 ```vim
 :TicTacToe
 ```
 
-## Controls
+### Controls
 
-Movement:
-- `h` `j` `k` `l` or arrow keys: move the cursor
+| Key | Action |
+|-----|--------|
+| `h` / `←` | Move cursor left |
+| `j` / `↓` | Move cursor down |
+| `k` / `↑` | Move cursor up |
+| `l` / `→` | Move cursor right |
+| `Enter` or `Space` | Place your mark (X) |
+| `r` | Reset and start new round |
+| `d` | Cycle AI difficulty (Easy → Medium → Hard) |
+| `c` | Clear score |
+| `q` or `Esc` | Quit game |
 
-Actions:
-- `<Enter>` or `<Space>`: place your mark (X)
-- `r`: reset and start a new round
-- `d`: cycle AI difficulty
-- `c`: clear score
-- `q` or `<Esc>`: quit the popup
+### Game Rules
 
-## Settings
+- **3×3 Grid**: Standard Tic-Tac-Toe board
+- **Players**: You are X, computer is O
+- **Turns**: Alternate placing marks on empty cells
+- **Winning**: Get three marks in a row (horizontal, vertical, or diagonal)
+- **Drawing**: All cells filled with no winner
+- **First Move**: Alternates between player and computer each round
 
-- `g:tictactoe_difficulty` (default: `"medium"`)
-  - Values: `"easy"`, `"medium"`, `"hard"`
+### Configuration
 
-## Notes
+Set in your vimrc:
+```vim
+let g:tictactoe_difficulty = "medium"  " Options: "easy", "medium", "hard"
+```
 
-- The popup is fixed width and centered.
-- Scores are shown as X (you), O (computer), and D (draws).
-- Each new round alternates who takes the first move.
+### Game Difficulty
+
+- **Easy**: Computer makes random valid moves
+- **Medium**: Computer blocks obvious threats and takes opportunities
+- **Hard**: Computer uses minimax algorithm for optimal play
+
+### Scoring
+
+The game tracks:
+- X (Your wins)
+- O (Computer wins)
+- D (Draws)
+
+Press `c` to clear all scores and start fresh.
+
+## Vim9 Language Features Demonstrated
+
+- **Game AI**: Minimax algorithm implementation for intelligent computer moves
+- **State Management**: Board state representation and game logic
+- **Type Checking**: Full type annotations throughout
+- **Classes**: Board and game state management with encapsulation
+- **Modular Design**: Separation between AI logic, UI, and game rules
+- **Popup Windows**: Modern Vim UI with floating game window
+- **Game Loop**: Turn-based game execution with input handling
+
+## License
+
+This plugin is licensed under the MIT License. See the LICENSE file in the repository for details.
+
