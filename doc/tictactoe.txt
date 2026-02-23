@@ -1,6 +1,6 @@
 *tictactoe.txt*  Tic-Tac-Toe game for Vim
 
-CONTENTS                                     *tictactoe-contents*
+CONTENTS                                               *tictactoe-contents*
 
   1. Overview...............|tictactoe-overview|
   2. Installation...........|tictactoe-install|
@@ -10,35 +10,98 @@ CONTENTS                                     *tictactoe-contents*
   6. Notes..................|tictactoe-notes|
 
 ==============================================================================
-1. Overview                                                   *tictactoe-overview*
+1. Overview                                            *tictactoe-overview*
 
 Tic-Tac-Toe is a popup-window game written in Vim9 script. You play as X,
 while the computer plays as O. The game supports multiple AI difficulties,
 score tracking, and alternating first moves between you and the computer.
 
 ==============================================================================
-2. Installation                                                 *tictactoe-install*
+2. Installation                                        *tictactoe-install*
 
-Use your favorite plugin manager, or install manually:
+Requirements~
 
-  - Copy this repository into a directory on your 'runtimepath'.
-  - Ensure these paths exist:
-      plugin/tictactoe.vim
-      autoload/tictactoe.vim
-      autoload/tictactoe/*.vim
-      doc/tictactoe.txt
-  - Run |:helptags| once:
-      :helptags ALL
+This plugin requires Vim 9.0 or later with Vim9 script support enabled.
+It will not work with Neovim or older versions of Vim.
+
+Installation~
+
+Using Git~
+If you have git installed, run the following command in your terminal:
+
+    Unix/Linux/macOS: >
+      git clone https://github.com/yegappan/tic-tac-toe.git ~/.vim/pack/downloads/opt/tic-tac-toe
+<
+    Windows (cmd.exe): >
+      git clone https://github.com/yegappan/tic-tac-toe.git %USERPROFILE%\vimfiles\pack\downloads\opt\tic-tac-toe
+<
+Using a ZIP file~
+If you prefer not to use Git:
+
+    Unix/Linux/macOS:
+    1. Create the destination directory: >
+
+	 mkdir -p ~/.vim/pack/downloads/opt/
+<
+    2. Download the plugin ZIP file from GitHub and extract its contents into
+       the directory created above.
+
+       *Note:* GitHub usually names the extracted folder tic-tac-toe-main.
+       Rename it to tic-tac-toe so the final path looks like this: >
+
+	 ~/.vim/pack/downloads/opt/tic-tac-toe/
+	 ├── plugin/
+	 ├── autoload/
+	 └── doc/
+<
+    Windows (cmd.exe):
+    1. Create the destination directory: >
+
+	 if not exist "%USERPROFILE%\vimfiles\pack\downloads\opt" mkdir "%USERPROFILE%\vimfiles\pack\downloads\opt"
+<
+    2. Download the plugin ZIP file from GitHub and extract its contents into
+       that directory.
+
+       *Note:* Rename the extracted folder (usually tic-tac-toe-main) to
+       tic-tac-toe so the path matches: >
+
+	 %USERPROFILE%\vimfiles\pack\downloads\opt\tic-tac-toe\
+	 ├── plugin/
+	 ├── autoload/
+	 └── doc/
+
+Finalizing Setup~
+Since this plugin is installed in the opt (optional) directory, it will not
+load automatically. Add the following line to your .vimrc (Unix) or _vimrc
+(Windows): >
+
+    packadd tic-tac-toe
+<
+After adding the line, restart Vim and run the following command to enable the
+help documentation: >
+
+    :helptags ALL
+<
+Plugin Manager Installation~
+
+If using a plugin manager like vim-plug, add to your .vimrc or init.vim:
+>
+    Plug 'path/to/tic-tac-toe'
+<
+Then run `:PlugInstall` and `:helptags ALL`
+
+For other plugin managers (Vundle, Pathogen, etc.), follow their standard
+installation procedures for local plugins.
 
 ==============================================================================
-3. Usage                                                           *tictactoe-usage*
+3. Usage                                               *tictactoe-usage*
 
 Start the game:
 
   :TicTacToe
 
 ==============================================================================
-4. Controls                                                     *tictactoe-controls*
+4. Controls                                            *tictactoe-controls*
 
 Movement:
   h j k l        Move cursor (left, down, up, right)
@@ -53,14 +116,14 @@ Actions:
   q or <Esc>     Quit the popup
 
 ==============================================================================
-5. Settings                                                     *tictactoe-settings*
+5. Settings                                            *tictactoe-settings*
 
-g:tictactoe_difficulty                                   *g:tictactoe_difficulty*
+g:tictactoe_difficulty                                 *g:tictactoe_difficulty*
   Default: "medium"
   Values: "easy", "medium", "hard"
 
 ==============================================================================
-6. Notes                                                           *tictactoe-notes*
+6. Notes                                               *tictactoe-notes*
 
 - The popup is fixed width and centered.
 - Scores are shown as X (you), O (computer), and D (draws).

@@ -6,31 +6,86 @@ tracking, and alternating first moves between you and the computer.
 
 ## Installation
 
-### Vim packages (built-in)
+### Using Git
+If you have git installed, run the following command in your terminal:
 
-1. Create a package directory if you do not already have one:
-   - Windows: `%USERPROFILE%\vimfiles\pack\downloads\opt\`
-   - Unix: `~/.vim/pack/downloads/opt/`
-2. Clone this repository into that directory:
+**Unix/Linux/macOS:**
 
-   ```sh
-   git clone https://github.com/yegappan/tic-tac-toe.git
-   ```
+```bash
+git clone https://github.com/yegappan/tic-tac-toe.git ~/.vim/pack/downloads/opt/tic-tac-toe
+```
+**Windows (cmd.exe):**
 
-3. Add the following line to the ~/.vimrc file:
-   ```vim
-   packadd tic-tac-toe
-   ```
-
-### Plugin managers
-
-Use your preferred plugin manager. Example with vim-plug:
-
-```vim
-Plug 'yourname/tic-tac-toe-vim'
+```cmd
+git clone https://github.com/yegappan/tic-tac-toe.git %USERPROFILE%\vimfiles\pack\downloads\opt\tic-tac-toe
 ```
 
-Then run `:PlugInstall`.
+### Using a ZIP file
+If you prefer not to use Git:
+
+**Unix/Linux/macOS:**
+
+Create the destination directory:
+
+```bash
+mkdir -p ~/.vim/pack/downloads/opt/
+```
+
+Download the plugin ZIP file from GitHub and extract its contents into the directory created above.
+
+*Note:* GitHub usually names the extracted folder tic-tac-toe-main. Rename it to tic-tac-toe so the final path looks like this:
+
+```plaintext
+~/.vim/pack/downloads/opt/tic-tac-toe/
+├── plugin/
+├── autoload/
+└── doc/
+```
+
+**Windows (cmd.exe):**
+
+Create the destination directory:
+
+```cmd
+if not exist "%USERPROFILE%\vimfiles\pack\downloads\opt" mkdir "%USERPROFILE%\vimfiles\pack\downloads\opt"
+```
+
+Download the plugin ZIP file from GitHub and extract its contents into that directory.
+
+*Note:* Rename the extracted folder (usually tic-tac-toe-main) to tic-tac-toe so the path matches:
+
+```plaintext
+%USERPROFILE%\vimfiles\pack\downloads\opt\tic-tac-toe\
+├── plugin/
+├── autoload/
+└── doc/
+```
+
+**Finalizing Setup**
+Since this plugin is installed in the opt (optional) directory, it will not load automatically. Add the following line to your .vimrc (Unix) or _vimrc (Windows):
+
+```viml
+packadd tic-tac-toe
+```
+
+After adding the line, restart Vim and run the following command to enable the help documentation:
+
+```viml
+:helptags ALL
+```
+
+### Plugin Manager Installation
+
+If using a plugin manager like vim-plug, add to your .vimrc or init.vim:
+
+   ```viml
+   Plug 'path/to/tic-tac-toe'
+   ```
+
+Then run `:PlugInstall` and `:helptags ALL`
+
+For other plugin managers (Vundle, Pathogen, etc.), follow their standard
+installation procedures for local plugins.
 
 ## Usage
 
