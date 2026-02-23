@@ -1,4 +1,4 @@
-# Tic-Tac-Toe for Vim
+# Tic-Tac-Toe Game in Vim9script
 
 A popup-window Tic-Tac-Toe game written in Vim9 script. You play as X, the
 computer plays as O. The game includes multiple AI difficulties, score
